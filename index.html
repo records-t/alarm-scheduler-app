@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html> 
+<html lang="en" dir="ltr"> 
+  
+<head> 
+    <meta charset="utf-8" /> 
+  
+    <!-- CDN LINK  -->
+    <script src= 
+"https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"> 
+    </script> 
+  
+    <!-- font icon link -->
+    <link rel="stylesheet" href= 
+"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> 
+    <link rel="stylesheet" href= 
+"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity= 
+"sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous" /> 
+  
+    <!-- CSS style -->
+    <style> 
+        @import url( 
+"https://fonts.googleapis.com/css2?family=Rubik&display=swap"); 
+  
+        nav {
+            margin: 25px;
+            padding: 25px;
+            background-color: #C6C6C6;
+        }
+
+        nav a{
+            font-size: 20px;
+            margin-left:25px;
+            margin-right:25px;
+            font-family: "Rubik", sans-serif; 
+        }
+
+        #introText {
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+            background-color: #3F498A;
+            width: 45%;
+            padding-top: .25%;
+            padding-left: 1.5%;
+            padding-right: 1.5%;
+            padding-bottom: .25%;
+            align-content: center;
+            font-size: 23px;
+            font-family: "Rubik", sans-serif; 
+        }
+
+        .createAlarmModal {
+            margin: 25px;
+            padding: 25px;
+            display:flex;
+            flex-flow: column;
+            align-content: center;
+            color: #C9D1FF;
+            background-color: #1E2042;
+        }
+
+        #app-vue { 
+            display: flex; 
+            justify-content: center; 
+            font-family: "Rubik", sans-serif; 
+        } 
+  
+        body { 
+            background: #2D3461; 
+            font-size: 18px; 
+        } 
+  
+        .fa-clock-o { 
+            background-color: #D46D00; 
+            color: #ffffff;
+            font-size: 50px;
+            width: 70px; 
+            height: 70px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            border-radius: 30px; 
+        } 
+        
+        .fa-pencil-square-o {
+            font-size: 30px;
+        }
+
+        .fa-times-circle-o {
+            font-size: 30px;
+        }
+
+        .lists { 
+            width: 1200px; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 40px; 
+            background: #1E2042; 
+        } 
+  
+        .container { 
+            width: 500px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px; 
+            margin: 10px 0px; 
+            background: #1E2042; 
+            color: #C9D1FF; 
+        } 
+  
+        .container input { 
+            width: 80%; 
+            padding: 8px 0px; 
+            outline: none; 
+            background: transparent; 
+            border: none; 
+            color: #C9D1FF; 
+            font-size: 17px; 
+        } 
+  
+        ::placeholder { 
+            color: #C9D1FF; 
+        } 
+  
+        .container-text { 
+            width: 500px; 
+            padding: 20px; 
+            margin: 20px 0px; 
+            background: #1E2042; 
+            color: #C9D1FF; 
+        } 
+  
+        .text { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        } 
+  
+        .text { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        } 
+  
+        li { 
+            margin: 20px 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: #C9D1FF; 
+        } 
+  
+        @media (max-width: 332px) { 
+  
+            .lists, 
+            .container-text, 
+            .container { 
+                width: 270px; 
+                max-width: 250px; 
+            } 
+        } 
+    </style> 
+</head> 
+  
+<body> 
+    <nav>
+        <a href="/howto.html"> How To Use </a>
+        <a href="/export.html"> Export </a>
+        <a href="/settings.html"> Settings </a>
+        <a href="/user.html"> User Info </a>
+    </nav>
+        <section>
+        <article id="introText">
+        <p>On this page you can manage your alarm macros. If you'd like to know more about how they can be used and exported to various devices and services, please click the "How To Use" page above. In brief, this will let you set repeating alarms
+            on an interval so they can be scheduled elsewhere instead of having to make repeating alarms individually.
+            <br><br>
+            Adding an alarm macro is simple and takes only a few seconds: Click the 'Clock' icon next to the 'Alarms' title below. A brief form will appear at the bottom allowing you to set the alarm title, start time, end time, and interval (in minutes)
+            between each alarm. 
+            <br><br>
+            You can hover over the alarm period on the list to see all the times it will activate.
+            <br><br>
+            After adding them, they will appear on the list below. If you would like to edit or delete them, press the small pad to edit it, or the circled 'X' to delete them. You will then be asked to confirm editing
+            or deleting.
+            <br><br>
+            The alarm list will be saved automatically.
+        </p>
+        </section>
+
+    <div id="app-vue"> 
+        <main> 
+
+
+            <div class="container-text"> 
+                <div class="text"> 
+                    <h1>Alarms</h1> 
+                    <span> 
+                        <!-- <i class="fa-solid fa-plus" 
+                            aria-hidden="true"
+                            v-on:click="createAlarmModal=true"> 
+                        </i>  -->
+                        <i class="fa fa-clock-o" aria-hidden="true" v-on:click="createAlarmModal=true"></i>
+                    </span> 
+
+                </div> 
+            </div> 
+            
+            <div class="lists"> 
+                <ul> 
+                  <!-- TODO: Clean this up for formatting -->
+                    <li v-for="(list, index) in lists" 
+                        :key="index">
+                        <template>
+                        <h3>{{ list.alarmName }}<br></h3>
+                        <!-- <span style="white-space: pre;" @mouseover="hover = true" @mouseleave="hover = false"> 
+                            <span v-if=hover> {{list.intervalArray}}</span> -->
+                        <!-- Maybe click rather than hover here?-->
+                            <span style="white-space: pre;" @mouseover="hover = true" @mouseleave="hover = false">
+                            <span v-if=hover> {{list.intervalArray}}</span>    
+                            <span v-else>
+                                Start time: <em>{{list.startTime}}</em> End Time: <em>{{list.endTime}}</em>
+                            </span>
+                        </span><br>
+                        <h4>Every {{ list.interval }} minutes<br></h4>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" v-on:click="editList(index)"></i>
+                        <i class="fa fa-times-circle-o" 
+                            aria-hidden="true" 
+                            v-on:click="removeList(index)"> 
+                        </i> 
+
+                        </template>
+                        
+                    </li>
+                    
+                </ul> 
+            </div> 
+            
+            <template v-if="createAlarmModal">
+              <form v-on:submit.prevent="submit" class="createAlarmModal">
+                
+                <fieldset>
+                    <h2>New Alarm</h1>
+                    <input type="text" v-model="list.alarmName">  Enter Alarm Name</label> <br>
+                </fieldset>
+                <fieldset>
+                <input type="time" v-model="list.startTime">  Start Time</label> <br>
+                <input type="time" v-model="list.endTime">  End Time</label> <br>
+                <input type="text" v-model="list.interval">  Interval</label>
+                </fieldset>
+                <br><br>
+                <input type="submit" v-on:click="createAlarmModal=False">
+              </form>
+            
+            </template>
+        </main> 
+    </div> 
+  
+    <script> 
+        var siteObject = new Vue({ 
+            el: "#app-vue", 
+            data() { 
+                return { 
+                  alarmName: '',
+                  startTime: '',
+                  endTime: '',
+                  interval:'',
+                  hover: false,
+                  list : {},
+                  lists: [ 
+                     {
+                      alarmName: 'Alarm 1',
+                      startTime: '19:00',
+                      endTime: '20:00',
+                      interval:15,
+                      intervalArray: []
+                     }
+                  ], 
+                  currentLists: "", 
+                  createAlarmModal: false
+                }; 
+            }, 
+            methods: { 
+                //Deprecated from prior tutorial, does not actually do anything (used to refer to having only one input as a textbox)
+                addList: function () { 
+                   this.lists.push(this.currentList); 
+                   this.currentList = "";
+                   console.log(currentLists);
+                }, 
+                
+                submit: function () {
+                  console.dir(this.list)
+                  
+                  //Case checking: Is end time after start time?
+                  startTimeToInt = this.timeStringToInt(this.list.startTime);
+                  endTimeToInt = this.timeStringToInt(this.list.endTime);
+                  intervalToInt = Number.parseInt(this.list.interval);
+                  validTimeSet = this.validTime(startTimeToInt, endTimeToInt);
+
+                  if (validTimeSet === false) {
+                        window.alert("Error: Your start time cannot be after your end time. Please try again.");
+                        return;
+                  }
+
+                  console.log(startTimeToInt);
+                  console.log(endTimeToInt);
+                  console.log(intervalToInt);
+                  console.log(validTimeSet);
+
+                  //Case checking: Is the interval valid, ie. can at least one alarm fit in the time period?
+
+                  validIntervalSet = this.validInterval(startTimeToInt, endTimeToInt, intervalToInt);
+
+                  if (validIntervalSet === false) {
+                        window.alert("Error: The interval is too short. No alarms can fit in this period. Please try again.");
+                        return;
+                  }
+
+                  // Also cannot be 0, lest we run into an infinite loop.
+
+                  if (intervalToInt === 0) {
+                    window.alert("Error: Interval cannot be 0. No alarms can fit in this period. Please try again.");
+                    return;
+                  }
+
+                  //Populating list of intervals
+
+                  listedIntervals = this.listOfIntervals(startTimeToInt, endTimeToInt, intervalToInt);
+                  this.list.intervalArray = listedIntervals;
+
+                  console.log(listedIntervals);
+
+                  this.lists.push(this.list)
+                  // Clear form content (doesn't appear to alter anything crucial)
+                  this.list = {};
+                },
+                
+                editList: function (index) {
+                    if (confirm('Are you sure you want to edit this entry?'))
+                        {console.log('To be implemented');
+                    }
+                    else {
+                        console.log('Nothing was edited');
+                    }
+                },
+                
+                removeList: function (index) { 
+                    if (confirm('Are you sure you want to delete this entry?')) {
+                        this.lists.splice(index, 1); 
+                    }
+                    else {
+                        console.log('The entry was not deleted.');
+                    }
+                }, 
+
+                //Translates string in HH:MM format to int as total number of minutes
+                //Should not be below 0 (00:00 AM) or 1439 (23:59 PM) due to extant
+                //restrictions in the HTML time form. Used for further processing of 
+                //either error checking or converting for processing.
+                
+                timeStringToInt: function(userTime) {
+                    var timeArray = userTime.split(':');
+                    var hours = Number.parseInt(timeArray[0]) * 60;
+                    var minutes = Number.parseInt(timeArray[1]);
+                    var hoursMinutesTotal = hours + minutes;
+                    return hoursMinutesTotal; 
+                },
+
+                //Conversely translates integer from total minutes to intelligible string for user display
+                timeIntToString: function(userTimeInt) {
+                    var minutes = userTimeInt % 60;
+                    var hours = Math.floor(userTimeInt/60);
+                    var hoursString;
+                    var minutesString;
+                    if (hours < 10) {
+                        hoursString = "0" + hours.toString();
+                    }
+                    else {
+                        hoursString = hours.toString();
+                    }
+                    if (minutes < 10) {
+                        minutesString = "0" + minutes.toString();
+                    }
+                    else {
+                        minutesString = minutes.toString();
+                    }
+                    return hoursString + ":" + minutesString;                    
+                },
+
+                validTime: function(time1, time2) {
+                    if (time1 < time2) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                },
+                validInterval: function(time1, time2, interval) {
+                    firstInterval = time1 + interval;
+                    if (firstInterval > time2) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                },
+                
+                listOfIntervals: function(time1, time2, interval) {
+                    var intervals = [];
+                    current = time1;
+                    while (current <= time2) {
+                        intervals.push(this.timeIntToString(current));
+                        current = current + interval;
+                    }
+                    return intervals;
+                }
+                
+                // removeList: function (index) { 
+                //     this.lists.splice(index, 1); 
+                // }, 
+            }, 
+        }); 
+    </script> 
+</body> 
+  
+</html> 
